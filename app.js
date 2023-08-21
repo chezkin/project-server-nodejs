@@ -37,6 +37,13 @@ app.use(express.urlencoded({
 }));
 
 
+function requireLOG(req, res, next) {
+    console.log(`${req.method} url:${req.url} at:${new Date()}`)
+    next();
+}
+app.use(requireLOG);
+
+
 // Creating middleware that sets the 'public' folder as static
 app.use('/static', express.static(path.join(__dirname, 'public')));
 

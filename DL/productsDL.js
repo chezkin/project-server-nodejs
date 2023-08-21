@@ -1,5 +1,6 @@
 const jsonfile = require('jsonfile');
 const path = require('path');
+const axios = require('axios');
 
 
 async function readData() {
@@ -16,8 +17,17 @@ async function writeData(_data) {
     return 'The file has been saved!';
 }
 
-function allProducts() {
+async function allProducts() {
     return readData();
+    // axios.get('https://fakestoreapi.com/products')
+    // .then(function (response) {
+    //     writeData(response.data);
+    //     console.log(response);
+    //     return response;
+    //   })
+    //   .catch(function (error) {
+    //     // handle error
+    //     console.log(error);});
 }
 
 async function getProductID(id) {
@@ -32,7 +42,8 @@ async function creatProduct(body) {
     const ifID = db.find((prod) => prod.id === body.id);
     if (ifID) throw err
     db.push(body);
-    writeData(db);
+    await writeData(db);
+    return `Product id:${body.id} created`;
 }
 
 
@@ -40,11 +51,10 @@ async function updateProductID(res, body, id) {
     const intID = Number(id);
     const db = await readData();
     const product = db.find((prod) => prod.id === intID);
-    console.log(body);
-    for (let key of Object.keys(body)) {
+    for (let key in body) {
         product[key] = body[key]
+        product = {...product,...body}
     }
-    console.log(body);
     db.forEach(prod => {
         if (prod.id === intID) {
             prod = product
@@ -66,7 +76,7 @@ async function moreProductID(id) {
     const intID = Number(id);
     const db = await readData();
     const product = db.find((prod) => prod.id === intID);
-    product.rating.count ++;
+    product.rating.count++;
     db.forEach(prod => {
         if (prod.id === intID) {
             prod = product
@@ -80,7 +90,7 @@ async function lessProductID(id) {
     const intID = Number(id);
     const db = await readData();
     const product = db.find((prod) => prod.id === intID);
-    product.rating.count --;
+    product.rating.count--;
     db.forEach(prod => {
         if (prod.id === intID) {
             prod = product

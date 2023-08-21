@@ -1,4 +1,4 @@
-const funcDal = require('../DL/funcDL');
+const funcDal = require('../DL/productsDL');
 
 module.exports = {
     getAllProducts: (req, res) => {

@@ -3,7 +3,6 @@ const productServer = require('../BL/productBL');
 module.exports = {
 
     getAllProducts: (req, res) => {
-        console.log(5);
         productServer.getAllProducts()
             .then(data => res.status(200).json(data))
             .catch(_error => { res.status(500).json(_error.message) });
