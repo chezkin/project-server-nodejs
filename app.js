@@ -17,24 +17,11 @@ const categoriesRoutes = require('./routes/routesCategories');
 app.use(morgan("dev"));
 
 
-// Creating middleware // The function handles the CORS settings and the response to OPTIONS requests
-app.use((req, res, next) => {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-type,Accept, Authorization");
-    if (req.method === "OPTIONS") {
-        res.header("Access-Control-Allow-Methods", "POST, PUT, DELETE, GET, PATCH");
-        return res.status(200).json({})
-    }
-    next();
-});
 
 // Create Middleware // The function converts the request body to JSON format
 app.use(express.json());
 
-// Create Middleware // The function handles a different format of sending a request
-app.use(express.urlencoded({
-    extended: false
-}));
+
 
 
 function requireLOG(req, res, next) {

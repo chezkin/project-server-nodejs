@@ -19,15 +19,6 @@ async function writeData(_data) {
 
 async function allProducts() {
     return readData();
-    // axios.get('https://fakestoreapi.com/products')
-    // .then(function (response) {
-    //     writeData(response.data);
-    //     console.log(response);
-    //     return response;
-    //   })
-    //   .catch(function (error) {
-    //     // handle error
-    //     console.log(error);});
 }
 
 async function getProductID(id) {
@@ -109,6 +100,4 @@ module.exports = {
     deleteProductID,
     moreProductID,
     lessProductID,
-
-
 }

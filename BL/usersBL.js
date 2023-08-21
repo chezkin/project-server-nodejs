@@ -45,11 +45,11 @@ schema
 // .is().not().oneOf(['Passw0rd', 'Password123']); // Blacklist these values
 
 function emailval(email) {
-    return validator.validate(email) ? true : false;
+    return validator.validate(email);
 }
 
 function passwordval(password) {
-    return schema.validate(password) ? true : false;
+    return schema.validate(password);
 }
 
 
