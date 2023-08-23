@@ -7,16 +7,16 @@ const controllersProducts = require('../controllers/controllersProducts');
 
 router.get('/all', controllersProducts.getAllProducts);
 
-router.get('/:productID', (req, res) => controllersProducts.getProductID(res, req.params.productID));
+router.get('/:productID',controllersProducts.getProductID);
 
-router.post('/add-product', (req, res) => controllersProducts.creatProduct(res, req.body));
+router.post('/add-product', controllersProducts.creatProduct);
 
-router.put('/update/:productID', (req, res) => controllersProducts.updateProductID(res, req.body, req.params.productID));
+router.put('/update', controllersProducts.updateProductID);
 
-router.delete('/delete/:productID', (req, res) => controllersProducts.deleteProductID(res, req.params.productID));
+router.delete('/delete/:productID', controllersProducts.deleteProductID);
 
-router.put('/more/:productID', (req, res) => controllersProducts.moreProductID(res, req.params.productID));
+router.put('/more/:productID', controllersProducts.moreProductID);
 
-router.put('/less/:productID', (req, res) => controllersProducts.lessProductID(res, req.params.productID));
+router.put('/less/:productID',  controllersProducts.lessProductID);
 
 module.exports = router;

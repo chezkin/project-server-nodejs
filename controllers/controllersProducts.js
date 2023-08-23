@@ -8,41 +8,45 @@ function getAllProducts(req, res) {
         .catch(_error => { res.status(500).json(_error.message) });
 }
 
-function getProductID(res, id) {
-    productServer.getProductID(id)
+function getProductID(req, res) {
+    productServer.getProductID(req.params.productID)
         .then(data => res.status(200).json(data))
         .catch(_error => { res.status(500).json(_error.message) });
 
 }
 
-async function creatProduct(res, body) {
-    console.log(body);
-    // if (body.lenght !== 7) res.status(500).json('body must be 7 characters');
-    productServer.creatProduct(body)
+async function creatProduct(req, res) {
+    try {
+        const data = await productServer.creatProduct(req.body)
+        res.status(200).json(data)
+    } catch (error) {
+        { res.status(500).json(error.message) }
+    };
+}
+
+async function updateProductID(req, res) {
+        try {
+            const data = await productServer.updateProductID(req.body)
+            res.status(200).json(data)
+        } catch (error) {
+            { res.status(500).json(error.message) }
+        };
+}
+
+function deleteProductID(req, res) {
+    productServer.deleteProductID(req.params.productID)
         .then(data => res.status(200).json(data))
         .catch(_error => { res.status(500).json(_error.message) });
 }
 
-async function updateProductID(res, body, id) {
-    productServer.updateProductID(res, body, id)
+function moreProductID(req, res) {
+    productServer.moreProductID(req.params.productID)
         .then(data => res.status(200).json(data))
         .catch(_error => { res.status(500).json(_error.message) });
 }
 
-function deleteProductID(res, id) {
-    productServer.deleteProductID(id)
-        .then(data => res.status(200).json(data))
-        .catch(_error => { res.status(500).json(_error.message) });
-}
-
-function moreProductID(res, id) {
-    productServer.moreProductID(id)
-        .then(data => res.status(200).json(data))
-        .catch(_error => { res.status(500).json(_error.message) });
-}
-
-function lessProductID(res, id) {
-    productServer.lessProductID(id)
+function lessProductID(req, res) {
+    productServer.lessProductID(req.params.productID)
         .then(data => res.status(200).json(data))
         .catch(_error => { res.status(500).json(_error.message) });
 }

@@ -10,13 +10,25 @@ function getProductID(id) {
 
 }
 
-function creatProduct(body) {
-    return funcDal.creatProduct(body);
+async function creatProduct(body) {
+    const product = body.data;
+    try {
+        const value = await schema.validateAsync(product);
+    }
+    catch (err) { throw err; }
+    product.created = body.user
 
+    return funcDal.creatProduct(product);
 }
 
-function updateProductID(res, body, id) {
-    return funcDal.updateProductID(res, body, id);
+async function updateProductID(body) {
+    const product = body.data;
+    try {
+        const value = await schema.validateAsync(product);
+    } 
+    catch (err) { throw err; }
+
+    return funcDal.updateProductID(product);
 }
 
 function deleteProductID(id) {
@@ -40,3 +52,35 @@ module.exports = {
     getAllProducts,
     getProductID,
 }
+
+
+const Joi = require('joi');
+
+const schema = Joi.object({
+    id: Joi.number()
+        .required(),
+
+    title: Joi.string()
+        .required(),
+
+    description: Joi.string(),
+
+    price: Joi.number()
+        .required(),
+
+    category: Joi.string(),
+
+    image: Joi.string(),
+
+    quantity: Joi.number()
+        .required(),
+
+    rating: {
+        rate: Joi.number(),
+        count: Joi.number(),
+    },
+
+});
+
+
+

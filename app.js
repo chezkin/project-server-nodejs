@@ -7,7 +7,6 @@ const morgan = require('morgan');
 //import object named 'path'
 const path = require('path');
 
-
 // Import into variables the router files
 const usersRoutes = require('./routes/routesUsers');
 const productsRoutes = require('./routes/routesProducts');
@@ -16,13 +15,8 @@ const categoriesRoutes = require('./routes/routesCategories');
 // Creating a middleware that will write the status and time to the console in every request
 app.use(morgan("dev"));
 
-
-
 // Create Middleware // The function converts the request body to JSON format
 app.use(express.json());
-
-
-
 
 function requireLOG(req, res, next) {
     console.log(`${req.method} url:${req.url} at:${new Date()}`)

@@ -28,31 +28,26 @@ async function getProductID(id) {
     if (result) return result
 }
 
-async function creatProduct(body) {
+async function creatProduct(product) {
     const db = await readData();
-    const ifID = db.find((prod) => prod.id === body.id);
-    if (ifID) throw err
-    db.push(body);
+    const ifID = db.find((prod) => prod.id === product.id);
+    if (ifID) throw new Error("error creating product: id is already");
+    db.push(product);
     await writeData(db);
-    return `Product id:${body.id} created`;
+    return `Product id:${product.id} created`;
 }
 
 
-async function updateProductID(res, body, id) {
-    const intID = Number(id);
+async function updateProductID(product) {
     const db = await readData();
-    const product = db.find((prod) => prod.id === intID);
-    for (let key in body) {
-        product[key] = body[key]
-        product = {...product,...body}
-    }
-    db.forEach(prod => {
-        if (prod.id === intID) {
-            prod = product
-        }
+
+    db.forEach((prod, index) => {
+        if (prod.id === product.id) {
+            db[index] = product;
+        } 
     });
     await writeData(db);
-    return `update Product id:${intID} success`;
+    return `update Product id:${product.id} success`;
 }
 
 async function deleteProductID(id) {
