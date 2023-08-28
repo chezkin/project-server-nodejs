@@ -31,7 +31,7 @@ async function getProductID(id) {
 async function creatProduct(product) {
     const db = await readData();
     const ifID = db.data.find((prod) => prod.id === product.id);
-    if (ifID) throw new Error("error creating product: id is already");
+     if (ifID) throw new Error("error creating product: id is already");
     db.data.push(product);
     await writeData(db);
     return `Product id:${product.id} created`;
@@ -54,8 +54,9 @@ async function deleteProductID(id) {
     const db = await readData();
     const ifID = db.data.find((prod) => prod.id === intID);
     if (!ifID) throw new Error("error deleted product: id is delete in the past");
-    const result = db.data.filter((prod) => prod.id !== intID);
-    await writeData(result);
+    const dbFilter = db.data.filter((prod) => prod.id !== intID);
+    db.data = dbFilter
+    await writeData(db);
     return `delete Product id:${intID}`
 }
 

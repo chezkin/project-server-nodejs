@@ -25,11 +25,12 @@ async function creatProduct(body) {
 async function updateProductID(body) {
     const product = body.data;
     try {
-        const value = await schema.validateAsync(product);
+        // const value = await schema.validateAsync(product);
+        return funcDal.updateProductID(product);
     } 
     catch (err) { throw err; }
 
-    return funcDal.updateProductID(product);
+
 }
 
 function deleteProductID(id) {
