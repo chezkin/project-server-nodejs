@@ -13,12 +13,13 @@ function getProductID(id) {
 async function creatProduct(body) {
     const product = body.data;
     try {
-        const value = await schema.validateAsync(product);
-    }
-    catch (err) { throw err; }
-    product.created = body.user
+        // const value = await schema.validateAsync(product);
+        product.created = body.user
 
-    return funcDal.creatProduct(product);
+        return funcDal.creatProduct(product);
+    }
+    catch (err) { throw err; } 
+
 }
 
 async function updateProductID(body) {

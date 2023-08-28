@@ -24,15 +24,15 @@ async function allProducts() {
 async function getProductID(id) {
     const intID = Number(id);
     const db = await readData();
-    const result = db.find((prod) => prod.id === intID);
+    const result = db.data.find((prod) => prod.id === intID);
     if (result) return result
 }
 
 async function creatProduct(product) {
     const db = await readData();
-    const ifID = db.find((prod) => prod.id === product.id);
+    const ifID = db.data.find((prod) => prod.id === product.id);
     if (ifID) throw new Error("error creating product: id is already");
-    db.push(product);
+    db.data.push(product);
     await writeData(db);
     return `Product id:${product.id} created`;
 }
@@ -40,10 +40,9 @@ async function creatProduct(product) {
 
 async function updateProductID(product) {
     const db = await readData();
-
-    db.forEach((prod, index) => {
+    db.data.forEach((prod, index) => {
         if (prod.id === product.id) {
-            db[index] = product;
+            db.data[index] = product;
         } 
     });
     await writeData(db);
@@ -53,7 +52,9 @@ async function updateProductID(product) {
 async function deleteProductID(id) {
     const intID = Number(id);
     const db = await readData();
-    const result = db.filter((prod) => prod.id !== intID);
+    const ifID = db.data.find((prod) => prod.id === intID);
+    if (!ifID) throw new Error("error deleted product: id is delete in the past");
+    const result = db.data.filter((prod) => prod.id !== intID);
     await writeData(result);
     return `delete Product id:${intID}`
 }
@@ -61,9 +62,9 @@ async function deleteProductID(id) {
 async function moreProductID(id) {
     const intID = Number(id);
     const db = await readData();
-    const product = db.find((prod) => prod.id === intID);
+    const product = db.data.find((prod) => prod.id === intID);
     product.rating.count++;
-    db.forEach(prod => {
+    db.data.forEach(prod => {
         if (prod.id === intID) {
             prod = product
         }
@@ -75,9 +76,9 @@ async function moreProductID(id) {
 async function lessProductID(id) {
     const intID = Number(id);
     const db = await readData();
-    const product = db.find((prod) => prod.id === intID);
+    const product = db.data.find((prod) => prod.id === intID);
     product.rating.count--;
-    db.forEach(prod => {
+    db.data.forEach(prod => {
         if (prod.id === intID) {
             prod = product
         }
