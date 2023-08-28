@@ -19,4 +19,6 @@ router.put('/more/:productID', controllersProducts.moreProductID);
 
 router.put('/less/:productID',  controllersProducts.lessProductID);
 
+router.post('/reload-data',  controllersProducts.reloadData);
+
 module.exports = router;

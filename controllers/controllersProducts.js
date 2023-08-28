@@ -50,6 +50,13 @@ function lessProductID(req, res) {
         .then(data => res.status(200).json(data))
         .catch(_error => { res.status(500).json(_error.message) });
 }
+
+function reloadData(req, res) {
+    productServer.reloadData(req, res)
+        .then(data => res.status(200).json(data))
+        .catch(_error => { res.status(500).json(_error.message) });
+}
+
 module.exports = {
     lessProductID,
     moreProductID,
@@ -58,6 +65,6 @@ module.exports = {
     creatProduct,
     getProductID,
     getAllProducts,
-
+    reloadData,
 }
 

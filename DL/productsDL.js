@@ -64,28 +64,28 @@ async function moreProductID(id) {
     const intID = Number(id);
     const db = await readData();
     const product = db.data.find((prod) => prod.id === intID);
-    product.rating.count++;
+    product.quantity ++;
     db.data.forEach(prod => {
         if (prod.id === intID) {
             prod = product
         }
     });
     await writeData(db);
-    return `Product id:${intID} count is ${product.rating.count}`;
+    return `Product id:${intID} count is ${product.quantity}`;
 }
 
 async function lessProductID(id) {
     const intID = Number(id);
     const db = await readData();
     const product = db.data.find((prod) => prod.id === intID);
-    product.rating.count--;
+    product.quantity--;
     db.data.forEach(prod => {
         if (prod.id === intID) {
             prod = product
         }
     });
     await writeData(db);
-    return `Product id:${intID} count is ${product.rating.count}`;
+    return `Product id:${intID} count is ${product.quantity}`;
 }
 
 module.exports = {

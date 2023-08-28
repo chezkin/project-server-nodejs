@@ -45,6 +45,46 @@ function lessProductID(id) {
     return funcDal.lessProductID(id);
 }
 
+
+
+
+const jsonfile = require('jsonfile');
+const path = require('path');
+const axios = require('axios');
+
+async function initDB() {
+    try {
+        const result = await axios.get('https://fakestoreapi.com/products')  
+        const productsData = changeAPI(result.data);
+        writeData(productsData);
+        console.log('data base is a loaded');
+    }  catch (err) { throw err; }
+}
+
+async function writeData(_data) {
+    await jsonfile.writeFile('./DL/dbProduct.json', _data, (err) => {
+        if (err) throw err;
+    });
+    return 'The file has been saved!';
+}
+
+function changeAPI(products){
+    const objData = {};
+    products.forEach(element => {
+        element.quantity =  Math.floor(Math.random() * (444 - 23 + 1)) + 23;
+        element.created  = "22aa4bfd-df48-4be0-b0bc-0ae16832f735"        
+    });
+    objData.data = products;
+    return objData
+}
+
+async function reloadData(req , res){
+    try {
+        return initDB()
+    }  catch (err) { throw err; }
+    
+}
+
 module.exports = {
     lessProductID,
     moreProductID,
@@ -53,6 +93,8 @@ module.exports = {
     creatProduct,
     getAllProducts,
     getProductID,
+    reloadData,
+    initDB,
 }
 
 
