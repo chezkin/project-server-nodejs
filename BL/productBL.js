@@ -12,13 +12,13 @@ function getProductID(id) {
 
 async function creatProduct(body) {
     const product = body.data;
-    try {
+    // try {
         // const value = await schema.validateAsync(product);
         product.created = body.user
-
+        // throw ({message:"missing name from product", code : 422})
         return funcDal.creatProduct(product);
-    }
-    catch (err) { throw err; } 
+    // }
+    // catch (err) { throw err; } 
 
 }
 

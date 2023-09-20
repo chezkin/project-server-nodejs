@@ -20,7 +20,7 @@ async function creatProduct(req, res) {
         const data = await productServer.creatProduct(req.body)
         res.status(200).json(data)
     } catch (error) {
-        { res.status(500).json(error.message) }
+        { res.status(error.code).json(error.message) }
     };
 }
 

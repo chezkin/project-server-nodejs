@@ -29,7 +29,7 @@ async function login(body) {
         if (user.email === body.email) {
             if (bcrypt.compareSync(body.password, user.password)) {
                 return({
-                    "message": "user already logged in",
+                    "message": "user login ssuccessfully",
                     "id": user.id
                 })
             }

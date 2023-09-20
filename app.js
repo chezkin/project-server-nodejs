@@ -14,15 +14,6 @@ const usersRoutes = require('./routes/routesUsers');
 const productsRoutes = require('./routes/routesProducts');
 const categoriesRoutes = require('./routes/routesCategories');
 
-// app.use((req, res, next) => {
-//     res.header("Access-Control-Allow-Origin", "*");
-//     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-type,Accept, Authorization");
-//     if (req.method === "OPTIONS") {
-//         res.header("Access-Control-Allow-Methods", "POST, PUT, DELETE, GET, PATCH");
-//         return res.status(200).json({})
-//     }
-//     next();
-// });
 app.use(cors());
 // Creating a middleware that will write the status and time to the console in every request
 app.use(morgan("dev"));
